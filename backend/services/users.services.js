@@ -46,3 +46,67 @@ exports.updateUserById = async (id, data) => {
     throw new Error(error.message);
   }
 };
+
+exports.addUserRewardPoints = async (points, userId) => {
+  try {
+    const user = await this.getUserById(userId);
+
+    await firestoreDB
+      .collection("users")
+      .doc(userId)
+      .update({
+        reward_points: user?.reward_points + points,
+      });
+    return "success";
+  } catch (error) {
+    throw error;
+  }
+};
+
+exports.removeUserP5Points = async (points, userId) => {
+  try {
+    const user = await this.getUserById(userId);
+
+    await firestoreDB
+      .collection("users")
+      .doc(userId)
+      .update({
+        p5_points: user?.p5_points - points,
+      });
+    return "success";
+  } catch (error) {
+    throw error;
+  }
+};
+
+exports.removeUserRewardPoints = async (points, userId) => {
+  try {
+    const user = await this.getUserById(userId);
+
+    await firestoreDB
+      .collection("users")
+      .doc(userId)
+      .update({
+        reward_points: user?.reward_points - points,
+      });
+    return "success";
+  } catch (error) {
+    throw error;
+  }
+};
+
+exports.addUserP5Points = async (points, userId) => {
+  try {
+    const user = await this.getUserById(userId);
+
+    await firestoreDB
+      .collection("users")
+      .doc(userId)
+      .update({
+        p5_points: user?.p5_points + points,
+      });
+    return "success";
+  } catch (error) {
+    throw error;
+  }
+};

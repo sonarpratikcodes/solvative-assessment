@@ -2,8 +2,11 @@ const { firestoreDB } = require("../utils/firebase-admin/firebase.config");
 
 exports.createReward = async (data) => {
   try {
+    data.created_by = new Date().toISOString();
+    data.updated_by = new Date().toISOString();
+
     const repsonse = await firestoreDB.collection("rewards").add(data);
-    return repsonse;
+    return data;
   } catch (error) {
     throw error;
   }
@@ -39,6 +42,16 @@ exports.updateRewardById = async (id, data) => {
     await firestoreDB.collection("rewards").doc(id).update(data);
 
     return { id, message: "Reward updated successfully." };
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+exports.deleteRewardById = async (id) => {
+  try {
+    await firestoreDB.collection("rewards").doc(id).delete();
+
+    return { id, message: "Reward deleted successfully." };
   } catch (error) {
     throw new Error(error.message);
   }
