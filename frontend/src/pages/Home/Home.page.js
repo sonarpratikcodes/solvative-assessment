@@ -1,11 +1,18 @@
 import PageLoader from "../../components/PageLoader/PageLoader.component";
 import useGetUsers from "../../hooks/useGetUsers.hook";
+import { useNavigate } from "react-router-dom";
 import "./Home.style.css";
+
 const Home = () => {
+  const navigate = useNavigate();
   const { users, isUsersLoading } = useGetUsers();
 
   const handleLogin = (value) => {
-    console.log(value);
+    navigate(`/${value?.id}`);
+  };
+
+  const handleAddUser = () => {
+    navigate(`/new`);
   };
 
   if (isUsersLoading) {
@@ -13,6 +20,9 @@ const Home = () => {
   } else
     return (
       <div>
+        <div className="container">
+          <button onClick={handleAddUser}>+ Add</button>
+        </div>
         <table>
           <thead>
             <tr>
@@ -29,7 +39,7 @@ const Home = () => {
                 <td data-label="P5 Points">{user?.p5_points}</td>
                 <td data-label="Reward Points">{user?.reward_points}</td>
                 <td data-label="Action">
-                  <button onClick={handleLogin}>Edit/Login</button>
+                  <button onClick={() => handleLogin(user)}>Edit/Login</button>
                 </td>
               </tr>
             ))}
