@@ -13,7 +13,7 @@ const useGetUsers = () => {
         setUsers(response?.data);
         setIsUsersLoading(false);
       } catch (error) {
-        console.log("Error: ", error?.response?.message);
+        console.log("Error: ", error?.response?.data);
       }
     })();
   }, []);
