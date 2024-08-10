@@ -18,3 +18,5 @@ const routes = [
     element: <CreateUser />,
   },
 ];
+
+export default routes;
