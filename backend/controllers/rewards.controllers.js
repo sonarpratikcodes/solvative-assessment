@@ -14,7 +14,7 @@ const {
 
 exports.GET_REWARDS = async (req, res) => {
   try {
-    const data = await getRewards();
+    const data = await getRewards(req?.query);
     res.status(200).send({
       status: 200,
       data,

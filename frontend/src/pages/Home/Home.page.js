@@ -26,6 +26,7 @@ const Home = () => {
         <table>
           <thead>
             <tr>
+              <th>#</th>
               <th>Name</th>
               <th>P5 Points</th>
               <th>Reward Points</th>
@@ -33,8 +34,9 @@ const Home = () => {
             </tr>
           </thead>
           <tbody>
-            {users.map((user) => (
+            {users.map((user, i) => (
               <tr key={user?.id}>
+                <td data-label="#">{++i}</td>
                 <td data-label="Name">{user?.name}</td>
                 <td data-label="P5 Points">{user?.p5_points}</td>
                 <td data-label="Reward Points">{user?.reward_points}</td>

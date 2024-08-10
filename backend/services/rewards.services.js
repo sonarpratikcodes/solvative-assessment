@@ -2,8 +2,8 @@ const { firestoreDB } = require("../utils/firebase-admin/firebase.config");
 
 exports.createReward = async (data) => {
   try {
-    data.created_by = new Date().toISOString();
-    data.updated_by = new Date().toISOString();
+    data.created_at = new Date().toISOString();
+    data.updated_at = new Date().toISOString();
 
     const repsonse = await firestoreDB.collection("rewards").add(data);
     return data;
@@ -12,10 +12,14 @@ exports.createReward = async (data) => {
   }
 };
 
-exports.getRewards = async () => {
+exports.getRewards = async (query) => {
   const rewards = [];
+  const qKeys = Object.keys(query);
   try {
-    const repsonse = await firestoreDB.collection("rewards").get();
+    const repsonse = await firestoreDB
+      .collection("rewards")
+      .where(`${qKeys[0]}.id`, "==", query[qKeys])
+      .get();
     repsonse.docs.forEach((doc) => {
       rewards.push({ ...doc.data(), id: doc.id });
     });
