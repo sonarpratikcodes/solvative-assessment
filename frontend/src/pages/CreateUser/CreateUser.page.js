@@ -45,6 +45,10 @@ const CreateUser = () => {
     }
   };
 
+  const handleRoutign = (path) => {
+    navigate(path);
+  };
+
   return (
     <div className="container">
       <div className="app-container">
@@ -78,6 +82,26 @@ const CreateUser = () => {
                 </button>
               </div>
             </form>
+            {userId ? (
+              <div className="points-actions">
+                <div>
+                  <label>P5 Points</label>
+
+                  <button
+                    onClick={() => navigate(`/${userId}/p5`)}
+                    type="button"
+                  >
+                    {user?.p5_points}
+                  </button>
+                </div>
+                <div>
+                  <label>Reward Points</label>
+                  <button onClick={() => navigate(`/${userId}/rewards`)}>
+                    {user?.reward_points}
+                  </button>
+                </div>
+              </div>
+            ) : null}
           </div>
         </div>
       </div>

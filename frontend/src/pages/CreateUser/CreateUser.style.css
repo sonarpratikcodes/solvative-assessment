@@ -52,3 +52,10 @@
 .form-actions button:hover {
   opacity: 0.9;
 }
+
+.points-actions {
+  padding: 16px 0px 0px 0px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
