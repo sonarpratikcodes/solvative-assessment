@@ -1,16 +1,26 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "./CreateUser.style.css";
 import { useEffect, useState } from "react";
-import { post } from "../../utils/axios/axios.config";
+import { post, put } from "../../utils/axios/axios.config";
+import useGetUserById from "../../hooks/useGetUserById.hook";
 
 const CreateUser = () => {
   const navigate = useNavigate();
+  const params = useParams();
+  const userId = params?.id !== "new" ? params?.id : null;
 
   const [initialValues, setInitialValues] = useState({
     name: "",
   });
-
   const [isFormSubmitting, setIsFormSubmitting] = useState(false);
+
+  const { user } = useGetUserById(userId);
+
+  useEffect(() => {
+    if (userId && user) {
+      setInitialValues({ name: user?.name });
+    }
+  }, [user]);
 
   const handleCancel = () => {
     navigate("/");
@@ -25,7 +35,9 @@ const CreateUser = () => {
     e.preventDefault();
     setIsFormSubmitting(true);
     try {
-      await post("/users", initialValues);
+      userId
+        ? await put(`/users/${userId}`, initialValues)
+        : await post("/users", initialValues);
       setIsFormSubmitting(true);
       navigate("/");
     } catch (error) {
@@ -38,7 +50,7 @@ const CreateUser = () => {
       <div className="app-container">
         <div className="app-card">
           <div className="form-container">
-            <h2>Create User</h2>
+            <h2>{userId ? "Edit User" : "Create User"}</h2>
             <form id="create-user-form" onSubmit={handleSubmit}>
               <div className="form-group">
                 <label htmlFor="name">Name</label>
