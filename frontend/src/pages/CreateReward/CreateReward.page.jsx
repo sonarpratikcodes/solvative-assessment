@@ -20,7 +20,7 @@ const CreateReward = () => {
   //   const [selecteUser, setSelectedUser] = useState(null);
 
   const handleCancel = () => {
-    navigate(`/${params?.id}/rewards`);
+    navigate(-1);
   };
 
   const handleSubmit = async (e) => {
