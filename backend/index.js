@@ -6,6 +6,8 @@ const usersRouter = require("./routers/users.routers");
 const app = express();
 const port = process.env.PORT || 8000;
 
+app.use(express.json());
+
 const api_version = "api/v1";
 
 app.use(`/${api_version}/users`, usersRouter);

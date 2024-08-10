@@ -2,6 +2,9 @@ const { firestoreDB } = require("../utils/firebase-admin/firebase.config");
 
 exports.createUser = async (data) => {
   try {
+    data.p5_points = 100;
+    data.reward_points = 0;
+
     const repsonse = await firestoreDB.collection("users").add(data);
     return repsonse;
   } catch (error) {
