@@ -36,7 +36,7 @@ const CreateReward = () => {
 
       initialValues.given_by = activeUser;
       await post(`/rewards`, initialValues);
-      navigate(`/${params?.id}/rewards`);
+      navigate(`/${params?.id}/p5`);
     } catch (error) {
       alert(error?.message);
     }
